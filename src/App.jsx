@@ -14,8 +14,8 @@ class App extends Component {
       dataSeluruhSurah : [],
       inputValue       : '',
       newData          : null,
-      namaSurah        : '',
       isiSurah         : null,
+      judulSurah       : ''
      }
   }
 
@@ -43,6 +43,7 @@ class App extends Component {
     console.log('sedang mengetik', event.target.value)
     this.setState({
       inputValue : event.target.value,
+      isiSurah : null
     }, () => {
       if(this.state.dataSeluruhSurah){
         const searchedSurah = this.state.dataSeluruhSurah.filter( item => (
@@ -60,24 +61,28 @@ class App extends Component {
       }
     })
   }
-  lihatSurah =(nomor,nama)=>{
-    axios.get(`https://api.banghasan.com/quran/format/json/surat/${nomor}/ayat/1-5`)
-    .then(res =>{
-      // console.log(res.data.ayat.data.ar)
+
+  bacaSurah = (nomor,namaSurah) => {
+    axios.get(`https://api.banghasan.com/quran/format/json/surat/${nomor}/ayat/1-10`)
+    .then(res=>{
+      // console.log(res.data.ayat.data.ar) 
       this.setState({
-        namaSurah : nama,
-        isiSurah  : res.data.ayat.data.ar 
+        isiSurah : res.data.ayat.data.ar,
+        judulSurah : namaSurah,
+        inputValue : ''
       },()=>{
-        console.log('nama surah',this.state.namaSurah)
-        console.log('isi Surah', this.state.isiSurah)
+        console.log(this.state.judulSurah)
+        console.log(this.state.isiSurah)
       })
     })
+    .catch(err => console.log(err),'error bung')
   }
-  BackHome =()=>{
+  backHome =()=>{
     this.setState({
-      isiSurah : null
+      isiSurah : null,
+      newData : null
     })
-  }
+  } 
 
   render() {
 
@@ -97,10 +102,10 @@ class App extends Component {
         <Content
           dataSeluruhSurah = {this.state.dataSeluruhSurah}
           dataSeluruh      = {this.state.newData}
-          // lihatsurah       = {this.lihatSurah}
-          // namaSurah        = {this.state.namaSurah}
+          bacaSurah        = {this.bacaSurah}
+          namaSurah        = {this.state.judulSurah}
           isiSurah         = {this.state.isiSurah}
-          // BackHome         = {this.BackHome}
+          backHome         = {this.backHome}
         />
 
 

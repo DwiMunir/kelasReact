@@ -8,7 +8,7 @@ const IsiSurah =(props)=>{
         </div>
         <button  
           className='btn btn-default btn-danger'
-          onClick  = {()=>props.BackHome()}
+          onClick  = {()=>props.backHome()}
         >
           Back Home
         </button>
@@ -16,7 +16,7 @@ const IsiSurah =(props)=>{
           <ol>
             {
               props.isiSurah.map((item,index)=>(
-                <li key={index} className='my-3 text-left' style={{fontSize:'20px'}}>
+                <li key={index} className='my-3 text-right' style={{fontSize:'20px'}}>
                   {item.teks}
                 </li>
               ))
@@ -28,9 +28,10 @@ const IsiSurah =(props)=>{
 }
 
 IsiSurah.defaultProps={
-  isiSurah : [
-    {teks : 'surat pertama'},
-    {teks : 'surat kedua'}
+  namaSurah : 'ini nama surah',
+  isiSurah  : [
+    {teks : 'surat 1'},
+    {teks : 'surat 2'}
   ]
 }
 
